@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Add Candidate</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container mt-4">
+		<h2>Add new candidate</h2>
+		<form th:action="@{/candidate/save}" th:object="${newCandidate}" method="post">
+			 <div class="form-group">
+                <label for="fullName">Full Name</label>
+                <input type="text" class="form-control" id="fullName" th:field="*{fullName}" placeholder="Enter full name" required>
+                <div th:if="${#fields.hasErrors('fullName')}" th:errors="*{fullName}" class="alert alert-danger"></div>
+             </div>
+			<div class="form-group">
+                <label for="email">Email</label>
+                <input type="text" class="form-control" id="email" th:field="*{email}" placeholder="Enter email" required>
+                 <div th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="alert alert-danger"></div>
+             </div>
+             <div class="form-group">
+                <label for="phone">Phone</label>
+                <input type="text" class="form-control" id="phone" th:field="*{phone}" placeholder="Enter phone" required>
+                <div th:if="${#fields.hasErrors('phone')}" th:errors="*{phone}" class="alert alert-danger"></div>
+             </div>
+             <div class="form-group">
+                <label for="dateOfBirth">Date of birth</label>
+                <input type="date" class="form-control" id="dateOfBirth" th:field="*{dateOfBirth}" required>
+                <div th:if="${#fields.hasErrors('dateOfBirth')}" th:errors="*{dateOfBirth}" class="alert alert-danger"></div>
+            </div>
+		
+			<div class="footer">
+				<button type="submit" class="btn btn-primary">Save</button>
+			</div>
+		</form>
+	</div>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>List candidates</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<body>
+	<div class="container mt-4">
+		<h1>List Candidates</h1>
+		<a class="btn btn-success" th:href="@{/candidate/candidate-add}">Add Candidate</a>
+		<div th:if="${#lists.isEmpty(candidates)}">
+            <div class="alert alert-warning">
+               Table is empty
+            </div>
+        </div>
+        <form th:action="@{/candidate/search}" class="input-group">
+        	<input type="text" name="keyword" placeholder="Search..." th:value="${keyword}"/>
+        	<button type="submit" class="btn btn-secondary">Search</button>
+        </form>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Email</th>
+					<th>FullName</th>
+					<th>Phone</th>
+					<th>Date Of Birth</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="candidate : ${candidates}">
+					<td th:text="${candidate.id}"></td>
+					<td th:text="${candidate.email}"></td>
+					<td th:text="${candidate.fullName}"></td>
+					<td th:text="${candidate.phone}"></td>
+					<td th:text="${candidate.dateOfBirth}"></td>
+					<td>
+						<a class="btn btn-info btn-sm" th:href="@{/candidate/candidate-update/{id}(id=${candidate.id})}">Update</a>
+                        <a class="btn btn-danger btn-sm"
+                           th:if="${candidate.experiences.?[role.name() == 'STAFF'].size() > 0}"
+                           onclick="return confirm('Bạn có chắc chắn xóa không?');" th:href="@{/candidate/delete/{id}(id=${candidate.id})}">Delete
+                        </a>
+                        <a class="btn btn-primary btn-sm">Detail</a>   
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+	</div>
+</body>
+</html>
